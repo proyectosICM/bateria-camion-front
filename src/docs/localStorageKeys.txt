@@ -1,0 +1,33 @@
+// src/docs/localStorageDocumentation.txt
+
+localStorage Documentation
+
+This file contains information about the localStorage keys used in the application.
+It serves as a reference and documentation for developers.
+
+1. Key: token
+   Description (EN): Stores the authentication token for the currently logged-in user.
+   Description (ES): Almacena el token de autenticación del usuario actualmente conectado.
+
+2. Key: username
+   Description (EN): Stores the username of the currently logged-in user.
+   Description (ES): Almacena el nombre de usuario del usuario actualmente conectado.
+
+3. Key: rolId
+   Description (EN): Stores the role ID of the currently logged-in user.
+   Description (ES): Almacena el ID del rol del usuario actualmente conectado.
+
+z. Key: anotherKey
+   Description (EN): Description of what this key is used for.
+   Description (ES): Descripción de para qué se utiliza esta clave.
+
+Usage example:
+
+// Set a value in localStorage
+localStorage.setItem('rolId', value);
+
+// Get a value from localStorage
+const rolId = localStorage.getItem('rolId');
+
+// Remove a value from localStorage
+localStorage.removeItem('rolId');

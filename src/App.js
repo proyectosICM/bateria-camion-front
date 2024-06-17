@@ -1,24 +1,45 @@
-import logo from './logo.svg';
+import { Route, Routes, BrowserRouter as Router, Navigate, useNavigate } from "react-router-dom";
 import './App.css';
 
+import { useEffect, useState } from "react";
+import { routes } from "./routes";
+import NavBarG from "./common/navbarG";
+
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+    }, 100);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+      <NavBarG />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              token ? <Navigate to="/p2" /> : <Navigate to="/login" />
+            }
+          />
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              exact
+              path={route.path}
+              element={route.component}
+            />
+          ))}</Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -1,0 +1,43 @@
+
+
+.menu-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+    box-sizing: border-box;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.menu-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .menu-container {
+        padding: 2px;
+    }
+
+    .menu-container h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .menu-container {
+        max-width: 1200px;
+    }
+
+    .menu-container h1 {
+        font-size: 2.5rem;
+    }
+}
+
+.menu-container .truck-item {
+    flex: 1 0 200px;
+    margin: 10px;
+}

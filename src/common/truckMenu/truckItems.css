@@ -1,0 +1,88 @@
+.t-item {
+    width: 80%;
+    max-width: 600px;
+    border: 2px solid #E5E7E9;
+    color: white;
+    border-radius: 25px;
+    padding: 20px; 
+    box-sizing: border-box;
+    background-color: #1b5381;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.plate-container {
+    position: relative;
+    text-align: center;
+}
+
+.plate-value {
+    font-size: 1rem; 
+    font-weight: bold;
+}
+
+.truck-icon {
+    width: 100%;
+    font-size: 2.5rem; 
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0; 
+}
+
+.label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.value {
+    font-size: 1rem;
+}
+
+.car-battery-icon {
+    font-size: 1.5rem; 
+}
+
+@media (min-width: 768px) {
+    .t-item {
+        width: 45%;
+        margin: 10px;
+    }
+
+    .plate-value {
+        font-size: 2.5rem;
+    }
+
+    .truck-icon {
+        font-size: 3rem;
+    }
+
+    .value {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .t-item {
+        width: 22%;
+        margin: 10px;
+        flex-direction: column;
+    }
+
+    .plate-value {
+        font-size: 2rem;
+    }
+
+    .truck-icon {
+        font-size: 3.5rem;
+    }
+
+    .value {
+        font-size: 1.2rem;
+    }
+}
