@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { Graphics } from "../graphics/graphics";
+import { Graphics } from "../../common/graphics/graphics";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { ImStatsDots } from "react-icons/im";
+import { CgDanger } from "react-icons/cg";
+import { BsBatteryHalf } from "react-icons/bs";
+import { AiFillThunderbolt, AiOutlineNumber } from "react-icons/ai";
+import { FaCarBattery, FaExclamationTriangle } from "react-icons/fa";
+import { HiCalendarDays } from "react-icons/hi2";
+import { TbClockHour4 } from "react-icons/tb";
+import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
+import { SlOptions } from "react-icons/sl";
 
 export function TruckDetails() {
   const navigate = useNavigate();
@@ -19,7 +27,6 @@ export function TruckDetails() {
         { fecha: [2023, 6, 17], cantidad: 3 },
       ],
     },
-    // Agregar más datos según sea necesario para diferentes carriles
   ];
 
   const [showStatistics, setShowStatistics] = useState(false);
@@ -39,9 +46,15 @@ export function TruckDetails() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Batería</th>
-              <th>Voltaje</th>
-              <th>Corriente</th>
+              <th>
+                <BsBatteryHalf className="icon" /> Carga %
+              </th>
+              <th>
+                <AiFillThunderbolt className="icon" /> Voltaje V
+              </th>
+              <th>
+              <FaCarBattery className="icon" />  Corriente A
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -96,46 +109,80 @@ export function TruckDetails() {
           </div>
         </>
       )}
-    <div>
+      <div>
         <span className="title">Incidencias recientes</span>
         <Table striped bordered hover variant="dark" style={{ width: "80%", margin: "auto" }}>
           <thead>
-            <tr>
-              <th>ID</th>
-              <th>Día</th>
-              <th>Hora</th>
-              <th>Incidencia</th>
-              <th>Estado</th>
-            </tr>
+          <tr>
+            <th>ID <AiOutlineNumber className="icon" /></th>
+            <th>Día <HiCalendarDays className="icon" /></th>
+            <th>Hora <TbClockHour4 className="icon"/>
+            </th>
+            <th>
+              Incidencia <CgDanger className="icon"/>
+            </th>
+            <th>Estado <MdOutlineAssignmentTurnedIn className="icon" /></th>
+            <th>
+              Opciones <SlOptions className="icon"/>
+            </th>
+          </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
+              <td>4</td>
               <td>22/01/2024</td>
-              <td>10:15 AM</td>
+              <td>12:15 AM</td>
               <td>Fallo de sistema</td>
               <td>Pendiente</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>22/01/2024</td>
-              <td>11:30 AM</td>
-              <td>Error de conexión</td>
-              <td>Resuelto</td>
+              <td>
+                <Button variant="info" size="sm">
+                  Ver detalles
+                </Button>
+              </td>
             </tr>
             <tr>
               <td>3</td>
               <td>22/01/2024</td>
-              <td>12:45 PM</td>
+              <td>11:30 AM</td>
+              <td>Error de conexión</td>
+              <td>Resuelto</td>
+              <td>
+                <Button variant="info" size="sm">
+                  Ver detalles
+                </Button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>22/01/2024</td>
+              <td>10:25 PM</td>
               <td>Problema de energía</td>
               <td>En curso</td>
+              <td>
+                <Button variant="info" size="sm">
+                  Ver detalles
+                </Button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>22/01/2024</td>
+              <td>09:45 PM</td>
+              <td>Problema de energía</td>
+              <td>En curso</td>
+              <td>
+                <Button variant="info" size="sm">
+                  Ver detalles
+                </Button>
+              </td>
             </tr>
           </tbody>
         </Table>
-        <Button className="n-button">Ver incidencias</Button>
+        <Button className="n-button">
+          {" "}
+          <CgDanger className="icon" /> Ver historial de incidencias de este vehiculo <FaExclamationTriangle />
+        </Button>
       </div>
     </div>
-
-    
   );
 }

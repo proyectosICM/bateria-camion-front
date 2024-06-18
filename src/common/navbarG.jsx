@@ -20,7 +20,7 @@ const NavBarG = () => {
       </Navbar.Brand>
       <Nav>
         <Nav.Link onClick={() => navigation("/menu")}>Menu</Nav.Link>
-        <Nav.Link onClick={() => navigation("/galeria")}>Incidencias</Nav.Link>
+        <Nav.Link onClick={() => navigation("/incidents")}>Incidencias</Nav.Link>
       </Nav>
       <Button onClick={() => handleLogout()} style={{ marginRight: "25px" }} variant="outline-light">
         Cerrar Sesión

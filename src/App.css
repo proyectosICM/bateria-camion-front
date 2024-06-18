@@ -36,7 +36,10 @@
   font-size: 2rem;
   font-weight: bolder;
   width: 100%;
+}
 
+.t-black{
+  color: black;
 }
 
 .subtitle-white,

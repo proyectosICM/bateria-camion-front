@@ -22,7 +22,10 @@ function App() {
   return (
     <Router>
       <div className="App">
-      <NavBarG />
+
+        {token && (
+          <NavBarG />
+        )}
         <Routes>
           <Route
             path="/"

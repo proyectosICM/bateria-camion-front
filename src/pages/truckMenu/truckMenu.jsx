@@ -1,8 +1,8 @@
 import React from "react";
 import { TruckItem } from "./truckItem";
 import "./truckMenu.css";
-import NavBarG from "./../navbarG";
-import { LogoutToken } from "./../../hooks/logoutToken";
+import NavBarG from "../../common/navbarG";
+import { LogoutToken } from "../../hooks/logoutToken";
 
 export function TruckMenu() {
   LogoutToken();
