@@ -12,8 +12,9 @@ import { HiCalendarDays } from "react-icons/hi2";
 import { TbClockHour4 } from "react-icons/tb";
 import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
 import { SlOptions } from "react-icons/sl";
-import { batteryTruckURL, truckURL } from "../../api/apiurl";
+import { batteryTruckURL, incidentTruckPageURL, truckURL } from "../../api/apiurl";
 import { ListItems } from "../login/crudHooks";
+import { formatDate } from "../../utils/timeFormatters";
 
 export function TruckDetails() {
   const navigate = useNavigate();
@@ -22,10 +23,12 @@ export function TruckDetails() {
 
   const [truckData, setTruckData] = useState();
   const [batteryData, setBatteryData] = useState();
+  const [incidentData, setIncidentData] = useState();
 
   useEffect(() => {
     ListItems(`${truckURL}/${truckIdSelected}`, setTruckData);
     ListItems(`${batteryTruckURL}/${truckIdSelected}`, setBatteryData);
+    ListItems(`${incidentTruckPageURL}/${truckIdSelected}?page=0&size=4`, setIncidentData);
   }, [truckIdSelected]);
 
   const handleBackButton = () => {
@@ -50,6 +53,12 @@ export function TruckDetails() {
   const toggleStatistics = () => {
     setShowStatistics(!showStatistics);
   };
+
+  const handleDetailsIncident = (id) => {
+    localStorage.setItem("incidentIdSelected", id)
+    localStorage.setItem("routeback", "/details")
+    navigate("/incident-details")
+  }
 
   return (
     <div className="c-background">
@@ -133,54 +142,22 @@ export function TruckDetails() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>4</td>
-              <td>22/01/2024</td>
-              <td>12:15 AM</td>
-              <td>Fallo de sistema</td>
-              <td>Pendiente</td>
-              <td>
-                <Button variant="info" size="sm">
-                  Ver detalles
-                </Button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>22/01/2024</td>
-              <td>11:30 AM</td>
-              <td>Error de conexión</td>
-              <td>Resuelto</td>
-              <td>
-                <Button variant="info" size="sm">
-                  Ver detalles
-                </Button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>22/01/2024</td>
-              <td>10:25 PM</td>
-              <td>Problema de energía</td>
-              <td>En curso</td>
-              <td>
-                <Button variant="info" size="sm">
-                  Ver detalles
-                </Button>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>22/01/2024</td>
-              <td>09:45 PM</td>
-              <td>Problema de energía</td>
-              <td>En curso</td>
-              <td>
-                <Button variant="info" size="sm">
-                  Ver detalles
-                </Button>
-              </td>
-            </tr>
+            {incidentData &&
+              incidentData.content.length > 0 &&
+              incidentData.content.map((incident, index) => (
+                <tr key={index}>
+                  <td>{incident.id}</td>
+                  <td>{formatDate(incident.dia)}</td>
+                  <td>{incident.hora}</td>
+                  <td>{incident.nombre}</td>
+                  <td>{incident.estado ? "Revisado" : "Sin revisar"}</td>
+                  <td>
+                    <Button variant="info" size="sm" onClick={() => handleDetailsIncident(incident.id)}>
+                      Ver detalles
+                    </Button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
         <Button className="n-button">

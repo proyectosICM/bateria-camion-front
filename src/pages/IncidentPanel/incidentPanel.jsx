@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button, FormControl } from "react-bootstrap";
 import { AiOutlineNumber } from "react-icons/ai";
 import { CgDanger } from "react-icons/cg";
@@ -7,26 +7,32 @@ import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
 import { SlOptions } from "react-icons/sl";
 import { TbClockHour4 } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-
-const incidents = [
-  { id: 1, day: "2024-06-01", time: "08:30", incident: "Falla de motor", status: "Pendiente" },
-  { id: 2, day: "2024-06-02", time: "14:00", incident: "Presión baja en neumático", status: "Resuelto" },
-  { id: 3, day: "2024-06-03", time: "16:45", incident: "Problemas de frenos", status: "En progreso" },
-  { id: 4, day: "2024-06-04", time: "10:15", incident: "Aceite bajo", status: "Pendiente" },
-  { id: 5, day: "2024-06-05", time: "11:00", incident: "Problemas eléctricos", status: "Resuelto" },
-  { id: 6, day: "2024-06-06", time: "09:30", incident: "Refrigerante bajo", status: "En progreso" },
-  { id: 7, day: "2024-06-07", time: "13:45", incident: "Luz de freno defectuosa", status: "Pendiente" },
-  { id: 8, day: "2024-06-08", time: "15:30", incident: "Fallo en el sistema de GPS", status: "Resuelto" },
-  { id: 9, day: "2024-06-09", time: "12:00", incident: "Sobrecalentamiento", status: "En progreso" },
-  { id: 10, day: "2024-06-10", time: "07:50", incident: "Falla en el alternador", status: "Pendiente" },
-];
+import { ListItems } from "../login/crudHooks";
+import { incidentCompanyPageURL, incidentTruckPageURL } from "../../api/apiurl";
+import { ListPaginatedData } from "../../hooks/listPaginatedData";
+import { PaginacionUtils } from "../../hooks/paginacionUtils";
+import { formatDate } from "../../utils/timeFormatters";
 
 export function IncidentPanel() {
   const navigate = useNavigate();
 
-  const viewIncidentDetails = () => {
+  const companyId = localStorage.getItem("companyId");
+
+  const [pageNumber, setPageNumber] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const [incidentData, setIncidentData] = useState();
+
+  const viewIncidentDetails = (id) => {
+    localStorage.setItem("incidentIdSelected", id)
+    localStorage.setItem("routeback", "/incidents")
     navigate("/incident-details");
   };
+
+  useEffect(() => {
+    ListPaginatedData(`${incidentCompanyPageURL}/${companyId}?page=${pageNumber}`, setIncidentData, setTotalPages, setCurrentPage);
+  }, [pageNumber]);
 
   return (
     <div className="c-background">
@@ -52,15 +58,15 @@ export function IncidentPanel() {
           </tr>
         </thead>
         <tbody>
-          {incidents.map((incident) => (
+          {incidentData && incidentData.length > 0 && incidentData.map((incident) => (
             <tr key={incident.id}>
               <td>{incident.id}</td>
-              <td>{incident.day}</td>
-              <td>{incident.time}</td>
-              <td>{incident.incident}</td>
-              <td>{incident.status}</td>
+              <td>{formatDate(incident.dia)}</td>
+              <td>{incident.hora}</td>
+              <td>{incident.nombre}</td>
+              <td>{incident.estado ? "Revisado" : "Sin revisar"}</td>
               <td>
-                <Button onClick={viewIncidentDetails} variant="info" size="sm">
+                <Button onClick={() => viewIncidentDetails(incident.id)} variant="info" size="sm">
                   Ver detalles
                 </Button>
               </td>
@@ -68,6 +74,7 @@ export function IncidentPanel() {
           ))}
         </tbody>
       </Table>
+      <PaginacionUtils setPageNumber={setPageNumber} setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
     </div>
   );
 }

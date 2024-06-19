@@ -15,3 +15,12 @@ export const truckCompanyPageURL = `${truckURL}/empresa-page`
 // Battery
 export const batteryURL = `${baseAPIURL}/baterias`;
 export const batteryTruckURL = `${batteryURL}/camion`
+export const batteryTruckAVGURL = `${batteryURL}/promedios`
+
+// Incident 
+export const incidentURL = `${baseAPIURL}/incidencias`
+export const incidentTruckURL = `${incidentURL}/camion`
+export const incidentTruckPageURL = `${incidentURL}/camion-page`
+
+export const incidentCompanyURL = `${incidentURL}/empresa`
+export const incidentCompanyPageURL = `${incidentURL}/empresa-page`

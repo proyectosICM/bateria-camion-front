@@ -25,6 +25,14 @@ It serves as a reference and documentation for developers.
    Description (EN): Stores the selected truck ID.
    Description (ES): Almacena el ID del camión seleccionado.
 
+5. Key: incidentIdSelected
+   Description (EN): Stores the selected incident ID.
+   Description (ES): Almacena el ID de la incidencia seleccionada.
+
+6. Key: routeback
+   Description (EN): Stores the route to go back to.
+   Description (ES): La ruta a la que retroceder
+
 Usage example:
 
 // Set a value in localStorage
