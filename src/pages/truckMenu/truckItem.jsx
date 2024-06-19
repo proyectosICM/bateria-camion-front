@@ -7,14 +7,21 @@ import "./truckItems.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-export function TruckItem() {
+export function TruckItem({data}) {
   const navigate = useNavigate();  
+  console.log(data) 
+
+
+  const handleDetails = (id) => {
+    localStorage.setItem("truckIdSelected", id);
+    navigate('/details');
+  };
 
   return (
     <div className="t-item">
       <div className="plate-container">
         <FaTruckMoving className="truck-icon" />
-        <span className="plate-value">ABC-1234</span>
+        <span className="plate-value">{data.placa}</span>
       </div>
       <div className="item">
         <span className="label">Carga:</span>
@@ -32,7 +39,7 @@ export function TruckItem() {
         <span className="value">1.2A</span>
         <FaCarBattery className="car-ti-icon" />
       </div>
-      <Button onClick={() => navigate('/details')}>Ver detalles</Button>
+      <Button onClick={() => handleDetails(data.id)}>Ver detalles</Button>
     </div>
   );
 }

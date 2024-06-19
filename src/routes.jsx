@@ -12,7 +12,7 @@ import { TruckMenu } from "./pages/truckMenu/truckMenu";
 export const routes = [
   //LOGIN
   { path: "/", component: <Login /> },
-  { path: "/login", component: <Login /> },
+  { path: "/login", component: <Login /> }, 
 
   //Redireccion
   { path: "/redirect", component: <Redirect /> },

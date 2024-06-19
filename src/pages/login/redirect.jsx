@@ -17,6 +17,10 @@ export function Redirect() {
   useEffect(() => {
     if (data) {
       let path;
+
+      localStorage.setItem("companyId", data.empresasModel.id);
+      localStorage.setItem("rolId", data.rolesModel.id);
+
       switch (data.rolesModel.id) {
         case 1:
           path = "/driver";

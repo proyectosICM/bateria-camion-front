@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Graphics } from "../../common/graphics/graphics";
@@ -12,11 +12,27 @@ import { HiCalendarDays } from "react-icons/hi2";
 import { TbClockHour4 } from "react-icons/tb";
 import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
 import { SlOptions } from "react-icons/sl";
+import { batteryTruckURL, truckURL } from "../../api/apiurl";
+import { ListItems } from "../login/crudHooks";
 
 export function TruckDetails() {
   const navigate = useNavigate();
 
-  // Datos simulados para el gráfico
+  const truckIdSelected = localStorage.getItem("truckIdSelected");
+
+  const [truckData, setTruckData] = useState();
+  const [batteryData, setBatteryData] = useState();
+
+  useEffect(() => {
+    ListItems(`${truckURL}/${truckIdSelected}`, setTruckData);
+    ListItems(`${batteryTruckURL}/${truckIdSelected}`, setBatteryData);
+  }, [truckIdSelected]);
+
+  const handleBackButton = () => {
+    localStorage.removeItem("truckIdSelected");
+    navigate("/menu");
+  };
+
   const graphicsData = [
     {
       carrilId: 1,
@@ -37,11 +53,11 @@ export function TruckDetails() {
 
   return (
     <div className="c-background">
-      <Button className="backButton" onClick={() => navigate("/menu")}>
+      <Button className="backButton" onClick={handleBackButton}>
         Atras
       </Button>
       <div>
-        <span className="title">Placa 1234</span>
+        <span className="title">{truckData && truckData.placa}</span>
         <Table striped bordered hover variant="dark" style={{ width: "80%", margin: "auto" }}>
           <thead>
             <tr>
@@ -53,33 +69,23 @@ export function TruckDetails() {
                 <AiFillThunderbolt className="icon" /> Voltaje V
               </th>
               <th>
-              <FaCarBattery className="icon" />  Corriente A
+                <FaCarBattery className="icon" /> Corriente A
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>80%</td>
-              <td>12V</td>
-              <td>5A</td>
-            </tr>
-            <tr>
-              <th>2</th>
-              <td>90%</td>
-              <td>12.5V</td>
-              <td>4.5A</td>
-            </tr>
-            <tr>
-              <th>3</th>
-              <td>60%</td>
-              <td>11.8V</td>
-              <td>6A</td>
-            </tr>
+            {batteryData &&
+              batteryData.length > 0 &&
+              batteryData.map((battery, index) => (
+                <tr key={index}>
+                  <td>{battery.id}</td>
+                  <td>{battery.carga} %</td>
+                  <td>{battery.voltaje} V</td>
+                  <td>{battery.corriente} A</td>
+                </tr>
+              ))}
           </tbody>
         </Table>
-
-        {/* Renderizar el componente Graphics */}
       </div>
 
       <Button className="n-button" onClick={toggleStatistics}>
@@ -89,43 +95,42 @@ export function TruckDetails() {
       </Button>
       {showStatistics && (
         <>
-          <div className="graph-container-bat">
-            <span className="subtitle-white">Bateria 1</span>
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-          </div>
-          <div className="graph-container-bat">
-            <span className="subtitle-white">Bateria 2</span>
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-          </div>
-          <div className="graph-container-bat">
-            <span className="subtitle-white">Bateria 3</span>
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-            <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
-          </div>
+          {batteryData &&
+            batteryData.length > 0 &&
+            batteryData.map((battery, index) => (
+              <div className="graph-container-bat">
+                <span className="subtitle-white">Bateria 1</span>
+                <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
+                <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
+                <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
+              </div>
+            ))}
         </>
       )}
       <div>
         <span className="title">Incidencias recientes</span>
         <Table striped bordered hover variant="dark" style={{ width: "80%", margin: "auto" }}>
           <thead>
-          <tr>
-            <th>ID <AiOutlineNumber className="icon" /></th>
-            <th>Día <HiCalendarDays className="icon" /></th>
-            <th>Hora <TbClockHour4 className="icon"/>
-            </th>
-            <th>
-              Incidencia <CgDanger className="icon"/>
-            </th>
-            <th>Estado <MdOutlineAssignmentTurnedIn className="icon" /></th>
-            <th>
-              Opciones <SlOptions className="icon"/>
-            </th>
-          </tr>
+            <tr>
+              <th>
+                ID <AiOutlineNumber className="icon" />
+              </th>
+              <th>
+                Día <HiCalendarDays className="icon" />
+              </th>
+              <th>
+                Hora <TbClockHour4 className="icon" />
+              </th>
+              <th>
+                Incidencia <CgDanger className="icon" />
+              </th>
+              <th>
+                Estado <MdOutlineAssignmentTurnedIn className="icon" />
+              </th>
+              <th>
+                Opciones <SlOptions className="icon" />
+              </th>
+            </tr>
           </thead>
           <tbody>
             <tr>

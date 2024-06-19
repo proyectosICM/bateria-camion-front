@@ -17,9 +17,13 @@ It serves as a reference and documentation for developers.
    Description (EN): Stores the role ID of the currently logged-in user.
    Description (ES): Almacena el ID del rol del usuario actualmente conectado.
 
-z. Key: anotherKey
-   Description (EN): Description of what this key is used for.
-   Description (ES): Descripción de para qué se utiliza esta clave.
+3. Key: companyId
+   Description (EN): Stores the company ID of the currently logged-in user.
+   Description (ES): Almacena el ID de la empresa del usuario actualmente conectado.
+
+4. Key: truckIdSelected
+   Description (EN): Stores the selected truck ID.
+   Description (ES): Almacena el ID del camión seleccionado.
 
 Usage example:
 
