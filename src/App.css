@@ -19,6 +19,15 @@
   background-color: #3a3a3a;
 }
 
+.c-border {
+  border: 2px solid black;
+}
+
+.c-table {
+  width: "80%";
+  margin: "auto";
+}
+
 .backButton {
   width: 80%;
   margin: 10px auto;
@@ -38,7 +47,7 @@
   width: 100%;
 }
 
-.t-black{
+.t-black {
   color: black;
 }
 
@@ -72,7 +81,19 @@
   flex-direction: row;
   border: 2px solid black;
   border-radius: 20px;
-  margin: 12px auto
+  margin: 12px auto;
+  cursor: pointer;
+}
+
+.graph-container-stats {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  border-radius: 20px;
+  margin: 20px auto;
+  cursor: pointer;
+  flex-wrap: wrap;
 }
 
 .graph-container {

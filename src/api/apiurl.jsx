@@ -17,6 +17,13 @@ export const batteryURL = `${baseAPIURL}/baterias`;
 export const batteryTruckURL = `${batteryURL}/camion`
 export const batteryTruckAVGURL = `${batteryURL}/promedios`
 
+// Details Battery
+export const detailsURL = `${baseAPIURL}/detalles`;
+export const detailsBatterybURL = `${detailsURL}/bateria`
+export const detailsBatteryPagebURL = `${detailsURL}/bateria-page`
+
+export const detailsBatteryAVGHURL = `${detailsURL}/promedios-horarios`
+export const detailsBatteryAVGDURL = `${detailsURL}/promedios-diarios`
 // Incident 
 export const incidentURL = `${baseAPIURL}/incidencias`
 export const incidentTruckURL = `${incidentURL}/camion`

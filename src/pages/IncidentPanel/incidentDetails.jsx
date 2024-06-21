@@ -42,7 +42,7 @@ export function IncidentDetails() {
             backgroundColor: "#1b5381",
           }}
         >
-          <span className="title">Bateria responsable de la incidencia: {incidentData && incidentData.bateriasModels.id}</span>
+          <span className="title">Bateria responsable de la incidencia: {incidentData && incidentData.bateriasModel.id}</span>
           <br />
           <span className="title">Placa del camion asociado: {incidentData && incidentData.camionesModel.placa}</span>
           <br />

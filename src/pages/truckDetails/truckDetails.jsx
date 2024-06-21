@@ -15,6 +15,7 @@ import { SlOptions } from "react-icons/sl";
 import { batteryTruckURL, incidentTruckPageURL, truckURL } from "../../api/apiurl";
 import { ListItems } from "../login/crudHooks";
 import { formatDate } from "../../utils/timeFormatters";
+import Swal from "sweetalert2";
 
 export function TruckDetails() {
   const navigate = useNavigate();
@@ -55,10 +56,27 @@ export function TruckDetails() {
   };
 
   const handleDetailsIncident = (id) => {
-    localStorage.setItem("incidentIdSelected", id)
-    localStorage.setItem("routeback", "/details")
-    navigate("/incident-details")
-  }
+    localStorage.setItem("incidentIdSelected", id);
+    localStorage.setItem("routeback", "/details");
+    navigate("/incident-details");
+  };
+
+  const handleDetailStats = (id) => {
+    Swal.fire({
+      title: "¿Quieres ver el historial de registros?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Ver historial",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes agregar la lógica para navegar al historial de incidencias
+        localStorage.setItem("batteryIdSelected", id);
+        navigate("/stats-details");
+        console.log("Usuario eligió ver el historial");
+      }
+    });
+  };
 
   return (
     <div className="c-background">
@@ -70,7 +88,7 @@ export function TruckDetails() {
         <Table striped bordered hover variant="dark" style={{ width: "80%", margin: "auto" }}>
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Codigo bateria</th>
               <th>
                 <BsBatteryHalf className="icon" /> Carga %
               </th>
@@ -87,7 +105,7 @@ export function TruckDetails() {
               batteryData.length > 0 &&
               batteryData.map((battery, index) => (
                 <tr key={index}>
-                  <td>{battery.id}</td>
+                  <td>{battery.nombre}</td>
                   <td>{battery.carga} %</td>
                   <td>{battery.voltaje} V</td>
                   <td>{battery.corriente} A</td>
@@ -107,7 +125,7 @@ export function TruckDetails() {
           {batteryData &&
             batteryData.length > 0 &&
             batteryData.map((battery, index) => (
-              <div className="graph-container-bat">
+              <div className="graph-container-bat" key={index} onClick={() => handleDetailStats(battery.id)}>
                 <span className="subtitle-white">Bateria 1</span>
                 <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />
                 <Graphics gdata={graphicsData} type="individual" id={1} nombre="Carril 1" />

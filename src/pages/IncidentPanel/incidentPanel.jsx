@@ -49,6 +49,9 @@ export function IncidentPanel() {
             <th>Hora <TbClockHour4 className="icon"/>
             </th>
             <th>
+              Placa <CgDanger className="icon"/>
+            </th>
+            <th>
               Incidencia <CgDanger className="icon"/>
             </th>
             <th>Estado <MdOutlineAssignmentTurnedIn className="icon" /></th>
@@ -63,6 +66,7 @@ export function IncidentPanel() {
               <td>{incident.id}</td>
               <td>{formatDate(incident.dia)}</td>
               <td>{incident.hora}</td>
+              <td>{incident.camionesModel.placa}</td>
               <td>{incident.nombre}</td>
               <td>{incident.estado ? "Revisado" : "Sin revisar"}</td>
               <td>

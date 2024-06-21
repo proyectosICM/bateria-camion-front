@@ -33,6 +33,10 @@ It serves as a reference and documentation for developers.
    Description (EN): Stores the route to go back to.
    Description (ES): La ruta a la que retroceder
 
+6. Key: batteryIdSelected
+   Description (EN): Stores the selected battery ID.
+   Description (ES): Almacena el ID de la batería seleccionada.
+
 Usage example:
 
 // Set a value in localStorage

@@ -59,7 +59,7 @@ export function Graphics({ gdata, type, id, nombre }) {
 
   return (
 
-      <Line options={options} data={dataI} style={{width:"30%", height: "100%", margin: "0px auto"}} />
+      <Line options={options} data={dataI} style={{width:"30%", height: "300px", margin: "20px auto"}} />
 
   );
 }
